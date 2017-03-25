@@ -14,6 +14,8 @@ https://jquery.com/
 
 http://getbootstrap.com/
 
+<h2>Estrutura do banco de dados</h2>
+
 Altera as variáveis do arquivo data/Base.php atribuíndo o usuário e senha do banco de dados.
 
 $this->config['user']     = "user";
