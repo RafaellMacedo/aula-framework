@@ -18,8 +18,8 @@ http://getbootstrap.com/
 
 Altera as variáveis do arquivo data/Base.php atribuíndo o usuário e senha do banco de dados.
 
-$this->config['user'] = "user";
-$this->config['pass'] = "password";
+$this->config['user']     = "user";
+$this->config['password'] = "password";
 
 CREATE DATABASE projetofw;  
 
