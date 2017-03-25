@@ -14,8 +14,8 @@ abstract class Base {
     $this->config['adapter']  = "mysql";
     $this->config['hostname'] = "localhost";
     $this->config['dbname']   = "projetofw";
-    $this->config['user']     = "root";
-    $this->config['password'] = "1234";
+    $this->config['user']     = "user";
+    $this->config['password'] = "password";
     
     $this->database = $this->getConnection($this->config);
     
