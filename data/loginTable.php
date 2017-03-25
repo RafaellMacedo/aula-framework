@@ -10,9 +10,9 @@ class Login extends Base{
         $data = (object) $_POST;
 
         $db = $this->getDb();
-        $stm = $db->prepare('SELECT * FROM usuario WHERE login = :login AND password = :password');
+        $stm = $db->prepare('SELECT * FROM usuario WHERE login = :login AND pass = :pass');
         $stm->bindValue(':login',    $data->login);
-        $stm->bindValue(':password', $data->pass);
+        $stm->bindValue(':pass', $data->pass);
         $stm->execute();
         $result = $stm->fetch( PDO::FETCH_ASSOC);
 
