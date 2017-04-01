@@ -27,9 +27,15 @@ CREATE TABLE curso (idcurso int not null auto_increment, curso varchar(30), cons
 
 CREATE TABLE aluno ( idaluno int not null auto_increment, nome varchar(50) not null, email varchar(100) null, idade int null, sexo varchar(10) null, idcurso int not null, constraint PK_ALUNO primary key (idaluno), constraint FK_ALUNO_IDCURSO foreign key (idcurso) references curso (idcurso));
 
+<<<<<<< HEAD
 CREATE TABLE usuario (idusuario int not null auto_increment, nome varchar(70) not null, login varchar(30) null, senha varchar(10) not null, nivel int not null, constraint PK_USUARIO primary key (idusuario));
 
 INSERT INTO usuario (nome, login, senha) VALUES ('Professor', 'professor', '1234');
+=======
+CREATE TABLE usuario (idusuario int not null auto_increment, nome varchar(70) not null, login varchar(30) null, pass varchar(10) not null, nivel int not null, constraint PK_USUARIO primary key (idusuario));
+
+INSERT INTO usuario (nome, login, password, nivel) VALUES ('Professor', 'professor', '1234', 1);
+>>>>>>> a17d36c7d282b5d41b4e4a8f1de0187ec04e3150
 
 INSERT INTO curso (curso) VALUES ('Ciência da Computação'), ('Administração');
 
