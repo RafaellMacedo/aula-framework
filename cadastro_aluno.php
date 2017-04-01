@@ -74,7 +74,11 @@ include "resources/layout/header.php"
 
                             <div class="form-group">
                                 <label>Curso</label>
-                                <input class="form-control" name="curso" id="curso" placeholder="Informe seu curso">
+								<select class="form-control" name="curso" id="curso">
+                                    <option value="">Selecione</option>
+                                    <option value=1>Ciência da Computação</option>
+                                    <option value=2>Administração</option>
+                                </select>
                             </div>
 
                         </form>
@@ -142,18 +146,18 @@ include "resources/layout/header.php"
 
                     $.each(result.data, function(index, value){
 
-                        var count = $("table > tbody > tr").length;
-                        count++;
+                        //var count = $("table > tbody > tr").length;
+                        //count++;
                         
-                        var tr = '<tr id="aluno_' + count + '">';
-                        tr += '<td id="nome_' + count + '" data-nome="' + value.nome + '">' + value.nome + '</td>';
-                        tr += '<td id="idade_' + count + '" data-idade="' + value.idade + '">' + value.idade + '</td>';
-                        tr += '<td id="sexo_' + count + '" data-sexo="' + value.sexo + '">' + value.sexo + '</td>';
-                        tr += '<td id="email_' + count + '" data-email="' + value.email + '">' + value.email + '</td>';
-                        tr += '<td id="curso_' + count + '" data-curso="' + value.curso + '">' + value.curso + '</td>';
+                        var tr = '<tr id="aluno_' + value.idaluno + '">';
+                        tr += '<td id="nome_' + value.idaluno + '" data-nome="' + value.nome + '">' + value.nome + '</td>';
+                        tr += '<td id="idade_' + value.idaluno + '" data-idade="' + value.idade + '">' + value.idade + '</td>';
+                        tr += '<td id="sexo_' + value.idaluno + '" data-sexo="' + value.sexo + '">' + value.sexo + '</td>';
+                        tr += '<td id="email_' + value.idaluno + '" data-email="' + value.email + '">' + value.email + '</td>';
+                        tr += '<td id="curso_' + value.idaluno + '" data-curso="' + value.idcurso + '">' + value.curso + '</td>';
                         tr += '<td style="width:16%">';
-                        tr += '<button type="button" class="btn btn-primary btEditar" id="btEditar_' + count + '">Editar</button>';
-                        tr += '<button type="button" class="btn btn-danger btDeletar" id="btDeletar_' + count + '">Deletar</button>';
+                        tr += '<button type="button" class="btn btn-primary btEditar" id="btEditar_' + value.idaluno + '">Editar</button>';
+                        tr += '<button type="button" class="btn btn-danger btDeletar" id="btDeletar_' + value.idaluno + '">Deletar</button>';
                         tr += '</td>';
                         tr += '</tr>';
 
@@ -172,8 +176,7 @@ include "resources/layout/header.php"
                 var sexo    = $("#sexo").val();
                 var email   = $("#email").val();
                 var curso   = $("#curso").val();
-
-                var erro = false;
+				var erro = false;
 
                 if(nome.length == 0){
                     $("#nome").css("border-color","red");
@@ -208,25 +211,49 @@ include "resources/layout/header.php"
                 if(erro == true){
                     $("div.mensagem").addClass("alert-danger").html("<h4>Preencha todos os campos</h4>").show();
                 }else{
-                    if(idaluno.length == 0){
-                        var count = $("table > tbody > tr").length;
-                        count++;
-                        
-                        var tr = '<tr id="aluno_' + count + '">';
-                        tr += '<td id="nome_' + count + '" data-nome="' + nome + '">' + nome + '</td>';
-                        tr += '<td id="idade_' + count + '" data-idade="' + idade + '">' + idade + '</td>';
-                        tr += '<td id="sexo_' + count + '" data-sexo="' + sexo + '">' + sexo + '</td>';
-                        tr += '<td id="email_' + count + '" data-email="' + email + '">' + email + '</td>';
-                        tr += '<td id="curso_' + count + '" data-curso="' + curso + '">' + curso + '</td>';
-                        tr += '<td style="width:16%">';
-                        tr += '<button type="button" class="btn btn-primary btEditar" id="btEditar_' + count + '">Editar</button>';
-                        tr += '<button type="button" class="btn btn-danger btDeletar" id="btDeletar_' + count + '">Deletar</button>';
-                        tr += '</td>';
-                        tr += '</tr>';
+				    if(idaluno.length == 0){
+				        //var count = $("table > tbody > tr").length;
+                        //count++;
+						
+						$.ajax({
+							url: "data/alunoTable.php",
+							type: "POST",
+							data: {
+								action: "inserir",
+								nome: nome,
+								email: email,
+								idade: idade,
+								sexo: sexo,
+								idcurso: curso
+							}
+						}).done(function(data) {
+							data = JSON.parse(data);
 
-                        $("table > tbody").append(tr);
-                        $("div.mensagem").addClass("alert-success").html("<h4>Cadastrado com sucesso!</h4>").show();
+							if(data.success == true){
+								$("div.mensagem").addClass("alert-success").html("<h4>Cadastrado com sucesso!</h4>").show();
+								count = data.idaluno;
+								
+								var tr = '<tr id="aluno_' + count + '">';
+								tr += '<td id="nome_' + count + '" data-nome="' + nome + '">' + nome + '</td>';
+								tr += '<td id="idade_' + count + '" data-idade="' + idade + '">' + idade + '</td>';
+								tr += '<td id="sexo_' + count + '" data-sexo="' + sexo + '">' + sexo + '</td>';
+								tr += '<td id="email_' + count + '" data-email="' + email + '">' + email + '</td>';
+								tr += '<td id="curso_' + count + '" data-curso="' + curso + '">' + $("#curso option:selected").text() + '</td>';
+								tr += '<td style="width:16%">';
+								tr += '<button type="button" class="btn btn-primary btEditar" id="btEditar_' + count + '">Editar</button>';
+								tr += '<button type="button" class="btn btn-danger btDeletar" id="btDeletar_' + count + '">Deletar</button>';
+								tr += '</td>';
+								tr += '</tr>';
 
+								$("table > tbody").append(tr);
+						
+							}else{
+								$(".mensagem_erro").show();
+								$(".mensagem_erro").append("Erro ao cadastrar aluno!");
+								setTimeout(function(){window.location = "cadastro_aluno.php";}, 3000);
+                            }
+							LimpaDados();
+						});
                     }else{
                         $("tr[id=aluno_" + idaluno + "] > td[id=nome_" + idaluno + "]").removeAttr("data-nome");
                         $("tr[id=aluno_" + idaluno + "] > td[id=idade_" + idaluno + "]").removeAttr("data-idade");
@@ -238,16 +265,31 @@ include "resources/layout/header.php"
                         $("tr[id=aluno_" + idaluno + "] > td[id=idade_" + idaluno + "]").attr("data-idade",idade).html(idade);
                         $("tr[id=aluno_" + idaluno + "] > td[id=sexo_" + idaluno + "]").attr("data-sexo",sexo).html(sexo);
                         $("tr[id=aluno_" + idaluno + "] > td[id=email_" + idaluno + "]").attr("data-email",email).html(email);
-                        $("tr[id=aluno_" + idaluno + "] > td[id=curso_" + idaluno + "]").attr("data-curso",curso).html(curso);
+                        $("tr[id=aluno_" + idaluno + "] > td[id=curso_" + idaluno + "]").attr("data-curso",curso).html($("#curso option:selected").text());
 
-                        
+                        $.ajax({
+							url: "data/alunoTable.php",
+							type: "POST",
+							data: {
+								action: "alterar",
+								idaluno: idaluno,
+								nome: nome,
+								email: email,
+								idade: idade,
+								sexo: sexo,
+								idcurso: curso
+							}
+						}).done(function(data) {
+							data = JSON.parse(data);
+							if(data.success == true){
+								$("div.mensagem").addClass("alert-success").html("<h4>Alterado com sucesso!</h4>").show();
+							}else{
+								$(".mensagem_erro").show();
+								$(".mensagem_erro").append("Não foi possivel alterar o aluno");
+							}
+							LimpaDados();
+						});
                     }
-                    $("#idaluno").val("");
-                    $("#nome").val("");
-                    $("#idade").val("");
-                    $('#sexo option').removeAttr('selected').filter('[value=""]').attr('selected', true);
-                    $("#email").val("");
-                    $("#curso").val("");
                 }
             });
 
@@ -273,13 +315,31 @@ include "resources/layout/header.php"
                 $('#sexo option').removeAttr('selected').filter('[value='+ sexo +']').prop('selected', true);
 
                 $("#email").val(email);
-                $("#curso").val(curso);
+                $('#curso option').removeAttr('selected').filter('[value='+ curso +']').prop('selected', true);
                 $("#idaluno").val(idaluno);
             });
 
             $(document).on("click","button.btDeletar",function(){
                 var idaluno = this.id.replace(/[^\d]+/g,'');
                 if(confirm("Deseja realmente deletar este aluno?")){
+					$.ajax({
+						url: "data/alunoTable.php",
+						type: "POST",
+						data: {
+							action: "deletar",
+							idaluno: idaluno
+						}
+					}).done(function(data) {
+						data = JSON.parse(data);
+
+						if(data.success == true){
+							$("div.mensagem").addClass("alert-success").html("<h4>Excluido com sucesso!</h4>").show();
+						}else{
+							$(".mensagem_erro").show();
+							$(".mensagem_erro").append("Não foi possivel excluir o registro");
+						}
+					});
+				
                     $("#aluno_"+idaluno).remove();
                 }
             });
@@ -303,6 +363,15 @@ include "resources/layout/header.php"
 
             $("div.mensagem").removeClass("alert-danger  alert-success").html("").hide();
         }
+		
+		function LimpaDados(){
+			$("#idaluno").val("");
+			$("#nome").val("");
+			$("#idade").val("");
+			$('#sexo option').removeAttr('selected').filter('[value=""]').attr('selected', true);
+			$("#email").val("");
+			$("#curso").val("");
+		}
     </script>
     </body>
 </html>

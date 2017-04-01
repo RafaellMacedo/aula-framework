@@ -108,10 +108,10 @@
                     if(data.success == true){
                         window.location = "index.php";
                     }else{
-                        $(".mensagem_erro").show();
-                        $(".mensagem_erro").append(" Login ou senha inválido. </br></br>");
-                        $(".mensagem_erro").append(" Você só terá permissão de visualizar a lista de aluno. </br></br>");
-                        setTimeout(function(){window.location = "lista.php";}, 3000);
+                        // $(".mensagem_erro").show();
+                        // $(".mensagem_erro").append("Login ou senha inválido!");
+                        // $(".mensagem_erro").append("Usuário não registrado, você só tem permissão de visualizar a lista de aluno!");
+                        // setTimeout(function(){window.location = "lista.php";}, 3000);
                         
                     }
                 });

@@ -27,9 +27,9 @@ CREATE TABLE curso (idcurso int not null auto_increment, curso varchar(30), cons
 
 CREATE TABLE aluno ( idaluno int not null auto_increment, nome varchar(50) not null, email varchar(100) null, idade int null, sexo varchar(10) null, idcurso int not null, constraint PK_ALUNO primary key (idaluno), constraint FK_ALUNO_IDCURSO foreign key (idcurso) references curso (idcurso));
 
-CREATE TABLE usuario (idusuario int not null auto_increment, nome varchar(70) not null, login varchar(30) null, password varchar(10) not null, nivel int not null, constraint PK_USUARIO primary key (idusuario));
+CREATE TABLE usuario (idusuario int not null auto_increment, nome varchar(70) not null, login varchar(30) null, senha varchar(10) not null, nivel int not null, constraint PK_USUARIO primary key (idusuario));
 
-INSERT INTO usuario (nome, login, password) VALUES ('Professor', 'professor', '1234');
+INSERT INTO usuario (nome, login, senha) VALUES ('Professor', 'professor', '1234');
 
 INSERT INTO curso (curso) VALUES ('Ciência da Computação'), ('Administração');
 

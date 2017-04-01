@@ -19,9 +19,11 @@ abstract class Base {
     
     $this->database = $this->getConnection($this->config);
     
-    if(method_exists($this, $_GET['action'])){
-      call_user_func(array($this, $_GET['action']));
-    }
+	if (isset($_GET['action'])) {
+		if(method_exists($this, $_GET['action'])){
+			call_user_func(array($this, $_GET['action']));
+		}
+	}
   }
 
   public function setOptions(array $options) {
