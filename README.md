@@ -1,9 +1,7 @@
 <h2>Projeto Web Framework</h2>
 
 
-Este projeto foi criado para utilizar como base na criação de projetos de software web. 
-
-É um software web desenvolvido com os frameworks front-end Jquery e Bootstrap 3, no back-end feito na linguagem PHP 5.5 usando PDO para acesso ao banco de dados e o banco  MySql 5.6.
+Este projeto foi criado para utilizar como base na criação de projetos de software web, utilizando no front-end a biblioteca JQuery e framework Bootstrap 3, no back-end a linguagem PHP versão 5.5 usando PDO para acesso ao banco de dados e o banco  MySql 5.6.
 
 
 <h3>JQuery</h3>
@@ -35,7 +33,6 @@ INSERT INTO usuario (nome, login, senha) VALUES ('Professor', 'professor', '1234
 CREATE TABLE usuario (idusuario int not null auto_increment, nome varchar(70) not null, login varchar(30) null, pass varchar(10) not null, nivel int not null, constraint PK_USUARIO primary key (idusuario));
 
 INSERT INTO usuario (nome, login, password, nivel) VALUES ('Professor', 'professor', '1234', 1);
->>>>>>> a17d36c7d282b5d41b4e4a8f1de0187ec04e3150
 
 INSERT INTO curso (curso) VALUES ('Ciência da Computação'), ('Administração');
 
