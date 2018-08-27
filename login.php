@@ -45,12 +45,12 @@
                             <span style="display:none;" class="mensagem_erro label label-danger"></span>
                             <div class="form-group">
                                 <label>Login</label>
-                                <input name="login" id="login" class="form-control" value="teste">
+                                <input name="login" id="login" class="form-control" value="">
                             </div>
 
                             <div class="form-group">
                                 <label>Senha</label>
-                                <input type="password" min="6" name="pass" id="pass" class="form-control" placeholder="" value="123456">
+                                <input type="password" min="6" name="pass" id="pass" class="form-control" placeholder="" value="">
                             </div>
 
                             <button type="button" class="btn btn-default" id="btn_login">Login</button>

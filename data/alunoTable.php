@@ -10,7 +10,8 @@ class Aluno extends Base{
         $data = (object) $_POST;
 
         $db = $this->getDb();
-        $stm = $db->prepare('SELECT aluno.idaluno, aluno.nome, aluno.email, aluno.idade, aluno.sexo, curso.curso, aluno.idcurso FROM aluno INNER JOIN curso ON curso.idcurso = aluno.idcurso');
+        $stm = $db->prepare('SELECT aluno.idaluno, aluno.nome, aluno.email, aluno.idade, aluno.sexo, curso.curso, aluno.idcurso FROM aluno 
+            INNER JOIN curso ON curso.idcurso = aluno.idcurso');
         $stm->execute();
         $result = $stm->fetchAll( PDO::FETCH_ASSOC);
 
